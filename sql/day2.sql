@@ -38,7 +38,7 @@ WHERE id = 2 OR id = 3 OR id = 5;
 # 新建一个表table，加入字段信息
 # 添加数据
 # 检索
-
+# java语言连接数据库
 
 DROP TABLE IF EXISTS db_1712.course;
 CREATE TABLE db_1712.course(
@@ -69,10 +69,12 @@ INSERT INTO db_1712.choose VALUES (
     NULL ,1,2,4,'2017-09-06'
 );
 INSERT INTO db_1712.choose VALUES (
-  NULL ,2,2,3,'2017-09-06'
+  NULL ,2,1,3,'2017-09-06'
 );
 INSERT INTO db_1712.choose VALUES (
   NULL ,1,2,3,'2017-09-06'
 );
 SELECT *
-FROM db_1712.choose
+FROM db_1712.choose;
+# 任何一个表都要有一主键约束，主键约束的含义，不能为空，不能重复
+# 唯一约束 Unique 非空值不能重复
