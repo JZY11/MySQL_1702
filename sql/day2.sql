@@ -23,7 +23,10 @@ CREATE TABLE db_1712.student (
 SHOW FULL COLUMNS FROM db_1712.student;
 
 INSERT INTO db_1712.student VALUES (
-    NULL ,'某某某','和蔼可亲','男',18.0,1.78,123.46,'1999-5-1','2017-5-16 10:39:01'
+    NULL ,'James','和蔼可亲','男',18.0,1.78,123.46,'1999-5-1','2017-5-16 10:39:01'
+);
+INSERT INTO db_1712.student VALUES (
+  NULL ,'Marry','漂亮大方','女',18.0,1.65,123.46,'1999-5-1','2017-5-16 10:39:01'
 );
 SELECT *
 FROM db_1712.student;
@@ -35,3 +38,41 @@ WHERE id = 2 OR id = 3 OR id = 5;
 # 新建一个表table，加入字段信息
 # 添加数据
 # 检索
+
+
+DROP TABLE IF EXISTS db_1712.course;
+CREATE TABLE db_1712.course(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  name VARCHAR(255) COMMENT '课程名',
+  score DOUBLE(3,1) COMMENT '学分'
+);
+INSERT INTO db_1712.course VALUES (
+    NULL ,'Java',4.0
+);
+INSERT INTO db_1712.course VALUES (
+  NULL ,'PHP',3.0
+);
+SELECT *
+FROM db_1712.course;
+
+
+
+DROP TABLE IF EXISTS db_1712.choose;
+CREATE TABLE db_1712.choose(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  name VARCHAR(255) COMMENT '学生姓名',
+  course VARCHAR(255) COMMENT '选取的课程名',
+  grade INT COMMENT '年级序号',
+  time DATE COMMENT '入学年份'
+);
+INSERT INTO db_1712.choose VALUES (
+    NULL ,1,2,4,'2017-09-06'
+);
+INSERT INTO db_1712.choose VALUES (
+  NULL ,2,2,3,'2017-09-06'
+);
+INSERT INTO db_1712.choose VALUES (
+  NULL ,1,2,3,'2017-09-06'
+);
+SELECT *
+FROM db_1712.choose
