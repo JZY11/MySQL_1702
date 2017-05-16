@@ -1,3 +1,4 @@
+/*
 SHOW DATABASES;
 DROP DATABASE IF EXISTS db_1712;
 # 表的全限定名：db_1712.student
@@ -78,3 +79,4 @@ SELECT *
 FROM db_1712.choose;
 # 任何一个表都要有一主键约束，主键约束的含义，不能为空，不能重复
 # 唯一约束 Unique 非空值不能重复
+*/
