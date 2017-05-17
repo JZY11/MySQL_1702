@@ -35,12 +35,13 @@ CREATE TABLE db_1712.student_course (
 );
 
 -- alter 改变    也是DDL语句
-ALTER TABLE db_1712.student_course ADD CONSTRAINT fk_student_course_studentId
+ALTER TABLE db_1712.student_course -- 为studentId 添加外键约束
+  ADD CONSTRAINT fk_student_course_studentId
 FOREIGN KEY (studentId) REFERENCES db_1712.student(id)
 ON DELETE CASCADE ;-- 级联  删除主表数据
 
 
-ALTER TABLE db_1712.student_course
+ALTER TABLE db_1712.student_course -- 为courseId添加外键约束
   ADD CONSTRAINT
   fk_student_course_courseId
 FOREIGN KEY (courseId)
@@ -73,6 +74,11 @@ FROM db_1712.student;
 
 SELECT *
 FROM db_1712.course;
+
+DELETE FROM db_1712.course
+  WHERE id > 2;
+
+TRUNCATE TABLE db_1712.student_course;
 
 
 DELETE FROM db_1712.student;
