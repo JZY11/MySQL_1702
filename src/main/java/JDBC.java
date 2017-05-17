@@ -23,6 +23,9 @@ public class JDBC {
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO db_1712.course VALUES (NULL ,'Front-end',2)");
     // 4.执行语句
         preparedStatement.executeUpdate();
+        // 5.释放资源
+        connection.close();
+        preparedStatement.close();
     }
 
 }

@@ -75,7 +75,7 @@ SELECT *
 FROM db_1712.course;
 
 
-DELETE FROM db_1712.student
+DELETE FROM db_1712.student;
 
 
 
