@@ -76,3 +76,16 @@ FROM db_1712.course;
 
 
 DELETE FROM db_1712.student
+
+
+
+
+
+DROP TABLE IF EXISTS db_1712.test;
+CREATE TABLE db_1712.test(
+  id INT AUTO_INCREMENT PRIMARY KEY  COMMENT 'ID PK',
+  col VARCHAR(255) COMMENT 'test new'
+);
+ALTER TABLE db_1712.test
+    RENAME db_1712.test_new;
+SHOW TABLES ;
