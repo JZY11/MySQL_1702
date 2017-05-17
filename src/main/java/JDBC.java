@@ -10,12 +10,15 @@ import java.sql.SQLException;
  * on 2017/5/16.
  * MySQL_1702.
  */
+/*
+     用java语言连接数据库
+ */
 public class JDBC {
     public static void main(String[] args) throws SQLException {
     // 1.准备数据路驱动    JDBC驱动支持
       new Driver();//生成一受检异常
     // 2. 取得一次数据库连接
-        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/db_1702","root","system");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/db_1712","root","system");
     // 3.预编译
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO db_1712.course VALUES (NULL ,'Front-end',2)");
     // 4.执行语句

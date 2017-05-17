@@ -37,8 +37,8 @@ DELETE FROM db_1712.student
 WHERE id = 2 OR id = 3 OR id = 5;
 # 新建一个库
 # 新建一个表table，加入字段信息
-# 添加数据
-# 检索
+# 往表里添加数据
+# 查询
 # java语言连接数据库
 
 DROP TABLE IF EXISTS db_1712.course;
