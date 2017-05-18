@@ -8,15 +8,15 @@ SELECT *
 FROM db_1712.student;
 
 -- 三中INSERT插入语句
-INSERT INTO db_1712.student -- 所有列都加入具体信息（记录）
+INSERT INTO db_1712.student -- 插入所有列都加入具体信息（记录），要与建表之初的数据类型要一致
 VALUES (NULL, '002', 'tester', 'I\m...', 'F', 19, 1.7, 1234567.890, '1998-1-2', '2017-5-18 9:01:02');
 
 
-INSERT INTO db_1712.student (NAME)  -- 在某一具体列添加数据，其他列为空值
+INSERT INTO db_1712.student (NAME)  -- 在某一具体列插入数据，其他列的值将为默认值或空值，但非空列必须要有值(插入若干列)
 VALUES ('Tom');
 
 
-INSERT INTO db_1712.student (name) -- 在某一具体列插入多条数据
+INSERT INTO db_1712.student (name) -- 一条语句可插入多条记录
 VALUES ('N1'), ('N2'), ('N3');
 SHOW CREATE TABLE db_1712.student; -- 显示建表语句
 
@@ -174,3 +174,15 @@ WHERE (DEPTNO = 10 AND JOB = 'manager'AND DEPTNO = 30 AND emp.JOB = 'clerk') OR 
 SELECT JOB
 FROM scott.emp
 WHERE COMM > 0;-- 7
+
+SELECT *
+FROM scott.emp
+WHERE COMM<100 OR COMM<0;-- 8
+
+SELECT *
+FROM scott.emp
+WHERE HIREDATE;
+
+/*SELECT *
+FROM scott.emp
+WHERE ENAME LIKE A% AND*/
