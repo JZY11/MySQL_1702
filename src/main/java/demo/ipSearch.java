@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ipSearch {
     private static final String URL = "jdbc:mysql:///?user=root&password=system";
     private static final String SQL =
-            "SELECT * FROM db_1702.ip WHERE inet_aton(?) BETWEEN inet_aton(min) AND inet_aton(max)";
+            "SELECT * FROM db_1712.ip WHERE inet_aton(?) BETWEEN inet_aton(min) AND inet_aton(max)";
 
     public static void main(String[] args) throws SQLException {
         new Driver();
