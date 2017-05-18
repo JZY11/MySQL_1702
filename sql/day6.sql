@@ -91,4 +91,53 @@ SELECT
 FROM db_1712.ip;-- 投影操作
 
 SELECT count(DISTINCT geo)-- DISTINCT 去掉重复的数据
-FROM db_1712.ip
+FROM db_1712.ip;
+
+
+SHOW TABLES;
+
+SHOW TABLE STATUS FROM scott;
+
+SHOW FULL COLUMNS FROM scott.dept;
+SHOW FULL COLUMNS FROM scott.emp;
+SHOW FULL COLUMNS FROM scott.salgrade;
+
+SELECT *
+FROM scott.dept;
+
+SELECT *
+FROM scott.emp;
+
+SELECT *
+FROM scott.salgrade;
+
+SELECT ENAME,HIREDATE,DEPTNO
+FROM scott.emp;
+
+SELECT *
+FROM scott.emp
+WHERE JOB = 'salesman';
+
+SELECT *
+FROM scott.emp
+WHERE HIREDATE <> '1987 -01-01';
+
+SELECT *
+FROM scott.emp
+WHERE SAL >1000 AND JOB = 'salesman';
+
+SELECT *
+FROM scott.emp
+ORDER BY HIREDATE; -- ASC升序  DESC降序  默认升序
+
+SELECT *
+FROM scott.emp
+ORDER BY DEPTNO DESC ,SAL; -- 部门降序，工资升序   null值作为最小值
+
+SELECT DEPTNO,SAL
+FROM scott.emp
+ORDER BY 1 DESC ,2; -- 效果同上
+
+SELECT DEPTNO
+FROM scott.emp
+ORDER BY 1 DESC ,SAL -- 效果同上
