@@ -40,5 +40,55 @@ DELETE FROM db_1712.student;
 DELETE FROM db_1712.student
 WHERE name = 'tom'; -- 不区分大小写  在'tom'前BINARY则区分大小写
 
-# collate = utf8_unicode_cs CI Case Insensitive 在建表语句末尾加上后就可区分大小写
+# COLLATE = utf8_bin 在建表语句末尾加上后就可区分大小写
 
+
+
+DROP TABLE IF EXISTS db_1712.case_test;
+CREATE TABLE db_1712.case_test(
+    col VARCHAR(255)
+)COLLATE = utf8_bin; -- binary
+
+INSERT INTO db_1712.case_test VALUES ('test');
+SELECT *
+FROM db_1712.case_test;
+
+DELETE FROM db_1712.case_test
+WHERE col = 'test';
+
+
+SELECT *
+FROM db_1712.ip;
+
+SHOW DATABASES ;
+
+USE db_1712;
+SHOW TABLES ;
+
+# SHOW TABLES statu
+
+
+SHOW TABLE STATUS FROM db_1712
+WHERE Name = 'student';
+
+SHOW FULL COLUMNS FROM db_1712.student;
+
+SHOW FULL TABLES FROM db_1712;
+
+SHOW VARIABLES LIKE 'char%';
+SHOW VARIABLES LIKE 'coll%';
+
+SHOW VARIABLES ;
+
+SHOW CREATE TABLE db_1712.student;
+
+SELECT *
+FROM db_1712.student;
+
+SELECT
+    min,
+    geo
+FROM db_1712.ip;-- 投影操作
+
+SELECT count(DISTINCT geo)-- DISTINCT 去掉重复的数据
+FROM db_1712.ip
