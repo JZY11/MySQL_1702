@@ -8,17 +8,15 @@ SELECT *
 FROM db_1712.student;
 
 -- 三中INSERT插入语句
-INSERT INTO db_1712.student
+INSERT INTO db_1712.student -- 所有列都加入具体信息（记录）
 VALUES (NULL ,'002','tester','I\m...','F',19,1.7,1234567.890, '1998-1-2', '2017-5-18 9:01:02');
 
 
-INSERT INTO db_1712.student( NAME )
+INSERT INTO db_1712.student( NAME )  -- 在某一具体列添加数据，其他列为空值
 VALUES ('Tom');
 
 
-
--- 一条语句插入多条数据
-INSERT INTO db_1712.student(name)
+INSERT INTO db_1712.student(name) -- 在某一具体列插入多条数据
     VALUES ('N1'),('N2'),('N3');
 SHOW CREATE TABLE db_1712.student; -- 显示建表语句
 
@@ -29,3 +27,18 @@ UPDATE db_1712.student
 UPDATE db_1712.student
     SET height = 1.6
 WHERE id = 1;-- 修改具体的列
+
+
+DELETE FROM db_1712.student
+WHERE sno IS NULL ;
+
+DELETE FROM db_1712.student
+WHERE age <= 19; -- BETWEEN 19 AND 22
+
+DELETE FROM db_1712.student;
+
+DELETE FROM db_1712.student
+WHERE name = 'tom'; -- 不区分大小写  在'tom'前BINARY则区分大小写
+
+# collate = utf8_unicode_cs CI Case Insensitive 在建表语句末尾加上后就可区分大小写
+
