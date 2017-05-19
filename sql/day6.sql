@@ -147,37 +147,47 @@ SELECT DEPTNO
 FROM scott.emp
 ORDER BY 1 DESC, SAL; -- 效果同上
 
-SELECT *
-FROM scott.emp
-WHERE DEPTNO = 30;-- 1
 
-SELECT EMPNO,ENAME,DEPTNO
-FROM scott.emp
-WHERE JOB = 'clerk';-- 2
+SELECT
+  ENAME,
+  SAL + ifnull(COMM, 0)   -- ifnull函数，ifnull(COMM, 0)若COMM为null的话取0，若有值得话，就取该值
+FROM scott.emp;
 
 SELECT *
 FROM scott.emp
-WHERE COMM > emp.SAL;-- 3
+WHERE DEPTNO = 30; -- 1
+
+SELECT
+  EMPNO,
+  ENAME,
+  DEPTNO
+FROM scott.emp
+WHERE JOB = 'clerk'; -- 2
 
 SELECT *
 FROM scott.emp
-WHERE COMM > emp.SAL* 0.3;-- 4
+WHERE COMM > emp.SAL; -- 3
 
 SELECT *
 FROM scott.emp
-WHERE DEPTNO = 10 AND JOB = 'manager'OR DEPTNO = 30 AND JOB = 'clerk';-- 5
+WHERE COMM > emp.SAL * 0.3; -- 4
 
 SELECT *
 FROM scott.emp
-WHERE (DEPTNO = 10 AND JOB = 'manager'AND DEPTNO = 30 AND emp.JOB = 'clerk') OR (emp.JOB !='manager'AND JOB !='clerk'AND emp.SAL>2000);
+WHERE DEPTNO = 10 AND JOB = 'manager' OR DEPTNO = 30 AND JOB = 'clerk'; -- 5
+
+SELECT *
+FROM scott.emp
+WHERE (DEPTNO = 10 AND JOB = 'manager' AND DEPTNO = 30 AND emp.JOB = 'clerk') OR
+      (emp.JOB != 'manager' AND JOB != 'clerk' AND emp.SAL > 2000);
 
 SELECT JOB
 FROM scott.emp
-WHERE COMM > 0;-- 7
+WHERE COMM > 0; -- 7
 
 SELECT *
 FROM scott.emp
-WHERE COMM<100 OR COMM<0;-- 8
+WHERE COMM < 100 OR COMM < 0; -- 8
 
 SELECT *
 FROM scott.emp
@@ -185,8 +195,8 @@ WHERE HIREDATE REGEXP '_30$';
 
 SELECT *
 FROM scott.emp
-WHERE ENAME ;
+WHERE ENAME;
 
 SELECT *
 FROM scott.emp
-WHERE ENAME LIKE 'A%'OR 'B%'OR 'S%';
+WHERE ENAME LIKE 'A%' OR 'B%' OR 'S%';
