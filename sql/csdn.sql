@@ -11,7 +11,8 @@ CREATE TABLE db_1712.csdn (
 SELECT *
 FROM db_1712.csdn;
 
+# LOAD为导入数据最快的一种方式
 LOAD DATA LOCAL INFILE '/Users/Tony.Jaa/Desktop/www.csdn.net.sql'
     INTO TABLE db_1712.csdn
 FIELDS TERMINATED BY ' # '(username,password,email  )
-SET id = NULL ;
+SET id = NULL ;-- 主键我们自加的，实现自动增长
