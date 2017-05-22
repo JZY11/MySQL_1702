@@ -8,14 +8,14 @@ WHERE COMM IS NULL; -- 判断是否为NULL
 
 SELECT *
 FROM scott.emp
-WHERE COMM <=> NULL; -- 当两个操作数中可能含有NULL   可将其看作mysql的方言
+WHERE COMM <=> NULL; -- COMM <=> NULL值为1，而在MySQL数据库中1认为真。当两个操作数中可能含有NULL   可将其看作mysql的方言
 
 SELECT
   ENAME,
   DNAME
 FROM scott.emp
   JOIN scott.dept; -- 交错查询无意义，错误的查询
-
+# 内连接查询第一个有意义的查询
 SELECT
   DNAME,
   ENAME
@@ -23,6 +23,11 @@ FROM scott.emp
   INNER JOIN scott.dept
   -- 有意义的内连接查询
     ON emp.DEPTNO = dept.DEPTNO; -- 联接条件(员工部门编号=部门编号)   联接了不同表的行
+# 连接条件并不都是-->某一个表的外键列 = 另一个表的主键列    联合查询发生在至少两个表，联合查询的联合条件并不要求必须是一个外键等于一个主键
+# 但一般情况下总是外键等于主键
+SHOW FULL COLUMNS FROM scott.emp;
+SHOW FULL COLUMNS FROM scott.dept;
+
 SELECT *
 FROM scott.dept;
 SELECT *
@@ -34,16 +39,16 @@ FROM scott.dept; -- 与员工没有关联
 SELECT
   DISTINCT
   d.DEPTNO,
-  d.DNAME -- 字段的查询也建议添加别名
+  d.DNAME -- 字段的查询也建议添加别名，可提高查询效率
 FROM scott.dept AS d
-  INNER JOIN scott.emp AS e -- 内联接员工表， 联合查询关键字ON
+  INNER JOIN scott.emp AS e -- 内联接员工表， 联合查询关键字ON，别名可简化语句
     ON e.DEPTNO = d.DEPTNO;
 
 # 3. 返回员工和所属经理的姓名  (只需要一个员工表即可，经理也属于员工)
 SELECT
   e1.ENAME 员工姓名,
   e2.ENAME 经理姓名
-FROM scott.emp e1 INNER JOIN scott.emp e2 -- 一个表看成两个表，再进行联合查询称为自连接
+FROM scott.emp e1 INNER JOIN scott.emp e2 -- 一个表看成两个表，再进行联合查询称为自连接，内连接的一种特殊情况，靠别名的不同将其看成两个表
     ON e1.MGR = e2.EMPNO;
 
 -- left outer join
@@ -110,3 +115,5 @@ ON e.DEPTNO = d.DEPTNO;
 
 # 15. 返回雇员表中不在同一部门但是从事相同工作的员工信息
 # 16. 返回员工的详细信息，包括部门名
+SELECT *
+FROM scott.emp e ,scott.dept d;
