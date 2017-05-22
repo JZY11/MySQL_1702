@@ -25,6 +25,7 @@ CREATE TABLE db_exam.department (
 DROP TABLE db_exam.course;
 CREATE TABLE db_exam.course (
 
+
   id     INT AUTO_INCREMENT PRIMARY KEY
   COMMENT 'ID PK',
   title  VARCHAR(255) COMMENT '课程名称',
