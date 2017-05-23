@@ -130,16 +130,33 @@ CREATE VIEW scott.v_emp
     HIREDATE,
     SAL
     FROM scott.emp
-  WHERE DEPTNO = 20;
+  WHERE DEPTNO = 20; -- 创建视图
 
 USE scott;
 SHOW TABLES;
 
-DROP VIEW v_emp;
+DROP VIEW v_emp;  -- 删除视图
 
 SELECT *
-FROM scott.v_emp;
+FROM scott.v_emp; -- 查询视图的所有行所有列
+
+
+SELECT *
+FROM scott.v_emp
+WHERE JOB = 'manager';
 
 UPDATE scott.emp
     SET HIREDATE = '1981-5-1'
 WHERE HIREDATE = '1981-4-2';
+
+
+UPDATE scott.v_emp
+SET HIREDATE = '1981-6-1'
+WHERE HIREDATE = '1981-5-1';-- 透过视图可修改表里的数据
+
+CREATE VIEW v_emp_dept
+  AS
+  SELECT e.ENAME,d.DNAME
+  FROM scott.emp e  INNER JOIN scott.dept d
+ON e.DEPTNO = d.DEPTNO
+WHERE d.DEPTNO = 20;
