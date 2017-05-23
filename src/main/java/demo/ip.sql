@@ -9,3 +9,10 @@ CREATE TABLE db_1712.ip(
 
 SELECT *
 FROM db_1712.ip;
+
+SELECT count(*)
+FROM db_1712.ip;
+
+SELECT *
+FROM db_1712.ip
+WHERE geo RLIKE '东明县';
