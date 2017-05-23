@@ -90,3 +90,21 @@ FROM db_sc.student s INNER JOIN db_sc.course c
     ON s.id = sc.studentId AND c.id = sc.courseId
 WHERE c.id = 2;
 
+
+
+-- person
+#   name
+#   ...
+
+-- address
+#   loc
+#   ...
+
+# 1 person - 1 address  1 对 1
+# 1 person - n address  1 对 多
+# n person - 1 address  多 对 1
+# n person - n address  多 对 多
+
+# student - course n:n
+# student - student_course 1:n
+# course - student_course 1:n
