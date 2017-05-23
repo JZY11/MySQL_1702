@@ -117,3 +117,29 @@ ON e.DEPTNO = d.DEPTNO;
 # 16. 返回员工的详细信息，包括部门名
 SELECT *
 FROM scott.emp e ,scott.dept d;
+
+DROP DATABASE scott;
+CREATE DATABASE scott;
+
+
+# 创建视图，本质是被存储的查询
+CREATE VIEW scott.v_emp
+  AS
+  SELECT
+    JOB,
+    HIREDATE,
+    SAL
+    FROM scott.emp
+  WHERE DEPTNO = 20;
+
+USE scott;
+SHOW TABLES;
+
+DROP VIEW v_emp;
+
+SELECT *
+FROM scott.v_emp;
+
+UPDATE scott.emp
+    SET HIREDATE = '1981-5-1'
+WHERE HIREDATE = '1981-4-2';
