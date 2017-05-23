@@ -74,9 +74,19 @@ FROM db_sc.student_course;
 
 INSERT INTO db_sc.student_course VALUES (1, 1, NULL);-- 不可以添加，因为有联合主键
 
--- id = 1的学生选了哪些课？
-SELECT *
+-- id = 1的学生选了哪些课？(学生表，课程表，选课表)
+SELECT
+  s.name,c.title
 FROM db_sc.student s INNER JOIN db_sc.course c INNER JOIN db_sc.student_course sc
 ON s.id = sc.courseId AND c.id = sc.courseId
 WHERE s.id = 1;
+
+-- id = 2的课程有哪些学生选
+SELECT
+  c.title,
+  s.name
+FROM db_sc.student s INNER JOIN db_sc.course c
+  INNER JOIN db_sc.student_course sc
+    ON s.id = sc.studentId AND c.id = sc.courseId
+WHERE c.id = 2;
 
