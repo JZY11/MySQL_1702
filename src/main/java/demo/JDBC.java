@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * MySQL_1702.
  */
 /*
-     用java语言连接数据库
+     用java语言连接数据库   JDBC Java Database Connectivity Java 语言数据库连接
  */
 public class JDBC {
     public static void main(String[] args) throws SQLException {
