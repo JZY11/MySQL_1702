@@ -44,6 +44,20 @@ FROM scott.dept AS d
   INNER JOIN scott.emp AS e -- 内联接员工表， 联合查询关键字ON，别名可简化语句
     ON e.DEPTNO = d.DEPTNO;
 
+# 2. 工资多于 scott 的员工信息
+SELECT e1.*
+FROM scott.emp e1 INNER JOIN scott.emp e2
+ON e1.SAL + ifnull(e1.COMM,0) > e2.SAL + ifnull(e2.COMM,0)
+WHERE e2.ENAME = 'scott'; -- (1)联合查询
+
+SELECT *
+FROM scott.emp
+WHERE SAL + ifnull(COMM,0) >(
+  SELECT SAL + ifnull(COMM,0)
+  FROM scott.emp
+WHERE ENAME = 'scott'
+); -- (2)SELECT子句查询
+
 # 3. 返回员工和所属经理的姓名  (只需要一个员工表即可，经理也属于员工)
 SELECT
   e1.ENAME 员工姓名,
