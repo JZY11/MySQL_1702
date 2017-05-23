@@ -153,10 +153,12 @@ SELECT
   SAL + ifnull(COMM, 0)   -- ifnull函数，ifnull(COMM, 0)若COMM为null的话取0，若有值得话，就取该值
 FROM scott.emp;
 
+# 1. 查找部门 30 中员工的详细信息
 SELECT *
 FROM scott.emp
 WHERE DEPTNO = 30; -- 1
 
+# 2. 找出从事 clerk 工作的员工的编号、姓名、部门号
 SELECT
   EMPNO,
   ENAME,
@@ -164,31 +166,45 @@ SELECT
 FROM scott.emp
 WHERE JOB = 'clerk'; -- 2
 
+
+# 3. 检索出奖金多于基本工资的员工信息
 SELECT *
 FROM scott.emp
 WHERE COMM > emp.SAL; -- 3
 
+
+# 4. 检索出奖金多于基本工资 30% 员工信息
 SELECT *
 FROM scott.emp
 WHERE COMM > emp.SAL * 0.3; -- 4
 
+
+# 5. 希望看到 10 部门的经理或者 20 部门的职员 clerk 的信息
 SELECT *
 FROM scott.emp
 WHERE DEPTNO = 10 AND JOB = 'manager' OR DEPTNO = 30 AND JOB = 'clerk'; -- 5
 
+
+# 6. 找出 10 部门的经理、20 部门的职员或者既不是经理也不是职员但是高于 2000 元的员工信息
 SELECT *
 FROM scott.emp
 WHERE (DEPTNO = 10 AND JOB = 'manager' AND DEPTNO = 30 AND emp.JOB = 'clerk') OR
       (emp.JOB != 'manager' AND JOB != 'clerk' AND emp.SAL > 2000);
 
+
+# 7. 找出获得奖金的员工的工作
 SELECT JOB
 FROM scott.emp
 WHERE COMM > 0; -- 7
 
+
+# 8. 找出奖金少于 100 或者没有获得奖金的员工的信息
 SELECT *
 FROM scott.emp
 WHERE COMM < 100 OR COMM < 0; -- 8
 
+
+# 9. 查找员工雇佣日期是当月的最后一天的员工信息
 SELECT *
 FROM scott.emp
 WHERE HIREDATE REGEXP '_30$';
@@ -197,6 +213,8 @@ SELECT *
 FROM scott.emp
 WHERE ENAME;
 
+
+# 11. 找出姓名以 A、B、S 开始的员工信息
 SELECT *
 FROM scott.emp
 WHERE ENAME LIKE 'A%' OR 'B%' OR 'S%';

@@ -154,7 +154,7 @@ ON e.DEPTNO = d.DEPTNO;
 
 # 17. 返回员工工作及其从事此工作的最低工资
 # 18. 返回不同部门经理的最低工资
-# 19. 计算出员工的年薪，并且以年薪排序
+# 19. 计算出员工的年薪，并且以年薪排序 **
 SELECT ENAME,(SAL + ifnull(COMM,0)) * 12 年薪
 FROM scott.emp
 ORDER BY 2 DESC ;
