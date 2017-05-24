@@ -26,3 +26,16 @@ ROLLBACK ;
 
 SELECT *
 FROM scott.emp;
+
+START TRANSACTION ;
+UPDATE scott.emp
+    SET DEPTNO = DEPTNO - 10
+WHERE ENAME = 'allen';
+
+UPDATE scott.emp
+    SET DEPTNO = DEPTNO + 10
+WHERE ENAME = 'ward';
+
+COMMIT ;
+
+ROLLBACK ;
