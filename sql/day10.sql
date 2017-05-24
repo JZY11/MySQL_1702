@@ -22,7 +22,7 @@ WHERE ENAME = 'ward';
 
 COMMIT ; -- 事物的完成 （提交），事物有开启就要有完成
 
-ROLLBACK ;
+ROLLBACK ;-- 事物的完成
 
 SELECT *
 FROM scott.emp;
@@ -39,3 +39,48 @@ WHERE ENAME = 'ward';
 COMMIT ;
 
 ROLLBACK ;
+
+
+START TRANSACTION ;
+-- DML
+UPDATE scott.emp
+    SET ENAME = 'allen new'
+WHERE ENAME = 'allen';
+
+SELECT *
+FROM scott.emp;
+
+ROLLBACK ;
+COMMIT ;
+
+
+
+
+-- save point 保留点
+START TRANSACTION ;
+
+UPDATE scott.emp
+    SET ENAME = 'allen'
+WHERE EMPNO = 7499;
+
+SAVEPOINT a;
+
+DELETE FROM scott.emp
+WHERE EMPNO = 7499;
+
+SAVEPOINT b;
+
+
+INSERT INTO scott.emp(EMPNO,ENAME)
+    VALUE (1234,'tester');
+
+SAVEPOINT c;
+
+DELETE FROM scott.emp;
+
+COMMIT ;
+ROLLBACK TO a;
+ROLLBACK ;
+
+SELECT *
+FROM scott.emp;

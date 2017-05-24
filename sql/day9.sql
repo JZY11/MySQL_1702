@@ -51,7 +51,7 @@ WHERE scott.v_emp_dept.ENAME = 'scott new';
 
 CREATE VIEW scott.v_max
   AS
-  SELECT max(sal) max_sal
+  SELECT max(sal) max_sal  -- 聚合函数
   FROM scott.emp;
 
 SELECT *
