@@ -82,7 +82,15 @@ FROM scott.emp e RIGHT OUTER JOIN scott.dept d -- 右外联接
 SELECT *
 FROM scott.emp e1 INNER JOIN scott.emp e2
 ON e1.MGR = e2.EMPNO
-WHERE e1.HIREDATE < e2.HIREDATE;
+WHERE e1.HIREDATE < e2.HIREDATE;-- 联合查询
+
+SELECT *
+FROM scott.emp
+WHERE HIREDATE < (
+  SELECT HIREDATE
+  FROM scott.emp
+  WHERE JOB = 'MANAGER'
+);
 # 5. 返回员工姓名及其所在的部门名称
 SELECT
   e.ENAME,
@@ -109,14 +117,37 @@ FROM scott.emp e
   INNER JOIN scott.dept d
     ON e.DEPTNO = d.DEPTNO;
 
-# 9. 返回工资多于平均工资的员工
 
+SELECT ENAME
+FROM scott.emp
+WHERE DEPTNO = (
+  SELECT dept.DEPTNO
+  FROM scott.dept
+WHERE DNAME ='sales'
+);
+# 9. 返回工资多于平均工资的员工
+-- 子查询
+SELECT *
+FROM scott.emp
+WHERE emp.SAL + ifnull(COMM,0) >(
+  SELECT avg(SAL + ifnull(COMM,0))
+  FROM scott.emp
+);
 # 10. 返回与 scott 从事相同工作的员工
 SELECT *
 FROM scott.emp e1
   INNER JOIN scott.emp e2
     ON e1.JOB = e2.JOB
-WHERE e2.ENAME = 'SCOTT';
+WHERE e2.ENAME = 'SCOTT';-- 联合查询
+
+-- 子查询
+SELECT *
+FROM scott.emp
+WHERE JOB = (
+  SELECT JOB
+  FROM scott.emp
+  WHERE ENAME = 'scott'
+);
 
 # 11. 返回比 30 部门员工平均工资高的员工姓名与工资
 
@@ -205,9 +236,18 @@ UPDATE scott.v_emp
 SET HIREDATE = '1981-6-1'
 WHERE HIREDATE = '1981-5-1';-- 透过视图可修改表里的数据
 
-CREATE VIEW v_emp_dept
+CREATE OR REPLACE VIEW v_emp_dept  -- 视图不存在的话就CREATE,存在的话就更新REPLACE
   AS
   SELECT e.ENAME,d.DNAME
   FROM scott.emp e  INNER JOIN scott.dept d
 ON e.DEPTNO = d.DEPTNO
 WHERE d.DEPTNO = 20;
+
+SHOW FULL TABLES IN scott WHERE table_type LIKE 'view';
+SHOW TABLES IN scott;
+
+DESC scott.dept; -- =SHOW FULL COLUMNS FROM scott.dept看表所有列及注释
+SHOW TABLE STATUS FROM db_sc;-- 返回表的注释
+
+SELECT *
+FROM scott.dept;
