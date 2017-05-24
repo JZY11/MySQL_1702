@@ -84,13 +84,13 @@ FROM scott.emp e1 INNER JOIN scott.emp e2
 ON e1.MGR = e2.EMPNO
 WHERE e1.HIREDATE < e2.HIREDATE;-- 联合查询
 
-SELECT *
+/*SELECT *
 FROM scott.emp
 WHERE HIREDATE < (
   SELECT HIREDATE
   FROM scott.emp
   WHERE JOB = 'MANAGER'
-);
+);*/
 # 5. 返回员工姓名及其所在的部门名称
 SELECT
   e.ENAME,
@@ -115,9 +115,10 @@ WHERE e.JOB = 'clerk';
 SELECT e.ENAME
 FROM scott.emp e
   INNER JOIN scott.dept d
-    ON e.DEPTNO = d.DEPTNO;
+    ON e.DEPTNO = d.DEPTNO
+WHERE d.DNAME = 'sales';
 
-
+-- 子查询
 SELECT ENAME
 FROM scott.emp
 WHERE DEPTNO = (
@@ -138,7 +139,7 @@ SELECT *
 FROM scott.emp e1
   INNER JOIN scott.emp e2
     ON e1.JOB = e2.JOB
-WHERE e2.ENAME = 'SCOTT';-- 联合查询
+WHERE e2.ENAME = 'SCOTT';-- 联合查询,用两个别名代替两个表
 
 -- 子查询
 SELECT *
