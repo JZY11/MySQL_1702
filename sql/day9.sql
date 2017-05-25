@@ -16,13 +16,12 @@ WHERE table_type LIKE 'view'; -- 显示视图
 
 SHOW FULL TABLES IN scott;
 
-DROP VIEW scott.v_emp_10;
+DROP VIEW scott.v_emp_10; -- 删除视图
 
-DESC scott.dept;
-
-SHOW FULL COLUMNS FROM scott.dept;
-SHOW TABLE STATUS FROM db_sc;
-SHOW CREATE TABLE db_sc.student;
+DESC scott.dept;-- 显示部门表的基本结构，没有下面这条语句显示的全
+SHOW FULL COLUMNS FROM scott.dept;-- 显示表的所有列以及注释
+SHOW TABLE STATUS FROM db_sc;-- 显示表的注释
+SHOW CREATE TABLE db_sc.student;-- 显示的是建表语句，有列的注释还有表的注释
 
 SHOW CREATE VIEW scott.v_emp_10;-- 显示建视图语句
 

@@ -144,7 +144,7 @@ WHERE e2.ENAME = 'SCOTT';-- 联合查询,用两个别名代替两个表
 -- 子查询
 SELECT *
 FROM scott.emp
-WHERE JOB = (
+WHERE JOB = (            -- 非相关子查询
   SELECT JOB
   FROM scott.emp
   WHERE ENAME = 'scott'
