@@ -57,4 +57,70 @@ LIMIT 10 OFFSET 0;-- 查询前十的密码
 SELECT *
 FROM scott.emp;
 
+SELECT DEPTNO,JOB,max(SAL)
+FROM scott.emp
+GROUP BY DEPTNO,JOB;-- 分多组查询，分成更小的范围，有顺序要求,同时按部门编号与工种分组
+
+SELECT DEPTNO,avg(SAL)
+FROM scott.emp
+GROUP BY DEPTNO
+HAVING avg(SAL) > 2000; -- 主检索，where行检索，有group by 一定有having，但反之不可
+# 分组查询一般发生在聚合函数中
+
+
+
+
+
+INSERT INTO db_1712.csdn VALUE (NULL ,'tester','123','123.qq.com');
+
+SELECT *
+FROM db_1712.csdn
+WHERE password = '123';
+
+
+# 添加索引
+CREATE INDEX idx_email
+  ON db_1712.csdn(email);
+
+CREATE INDEX idx_username
+  ON db_1712.csdn(username);
+
+CREATE INDEX idx_password
+  ON db_1712.csdn(password);
+
+SHOW INDEX FROM db_1712.csdn;
+DROP INDEX idx_email
+    on db_1712.csdn;
+
+ALTER TABLE db_1712.csdn
+  MODIFY COLUMN username VARCHAR(191);
+
+ALTER TABLE db_1712.csdn
+  MODIFY COLUMN password VARCHAR(191);
+
+ALTER TABLE db_1712.csdn
+  MODIFY COLUMN email VARCHAR(191);
+
+DESC db_1712.csdn;
+
+
+
+SHOW INDEX FROM db_sc.student_course;
+SHOW INDEX FROM db_sc.student; -- id  departmentId
+
+CREATE TABLE scott.test(
+  id int AUTO_INCREMENT PRIMARY KEY ,
+  col1 VARCHAR(255) UNIQUE ,
+  col2 INT
+);
+
+SHOW INDEX FROM scott.test;
+
+SHOW INDEX FROM db_1712.csdn;
+
+SHOW COLUMNS FROM db_1712.csdn;
+
+SHOW TABLE STATUS FROM db_1712;
+
+
 
