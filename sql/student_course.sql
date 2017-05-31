@@ -73,6 +73,8 @@ SELECT *
 FROM db_sc.student_course;
 
 INSERT INTO db_sc.student_course VALUES (1, 1, NULL);-- 不可以添加，因为有联合主键
+SELECT *
+FROM db_sc.student_course;
 
 -- id = 1的学生选了哪些课？(学生表，课程表，选课表)
 SELECT
