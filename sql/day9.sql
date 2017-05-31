@@ -11,10 +11,11 @@ WHERE DEPTNO = 10;
 SELECT *
 FROM scott.v_emp_10;
 
-SHOW FULL TABLES IN scott
-WHERE table_type LIKE 'view'; -- 显示视图
-
 SHOW FULL TABLES IN scott;
+SHOW FULL TABLES IN scott
+
+
+WHERE table_type LIKE 'view'; -- 显示视图
 
 DROP VIEW scott.v_emp_10; -- 删除视图
 

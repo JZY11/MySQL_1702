@@ -36,8 +36,10 @@ CREATE TABLE db_1712.student_course (
 
 -- alter 改变    也是DDL语句
 ALTER TABLE db_1712.student_course -- 为字段studentId 添加外键约束
-  ADD CONSTRAINT fk_student_course_studentId
-FOREIGN KEY (studentId) REFERENCES db_1712.student(id) -- references引用
+  ADD CONSTRAINT
+  fk_student_course_studentId
+FOREIGN KEY (studentId)
+REFERENCES db_1712.student(id) -- references引用
 ON DELETE CASCADE ;-- 级联  删除主表数据
 
 # student_course这个表具有两个外键
