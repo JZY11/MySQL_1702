@@ -51,3 +51,12 @@ SELECT e.word
 FROM db_dict.english e INNER JOIN db_dict.chinese c INNER JOIN db_dict.english_chinese ec
     ON e.id = ec.englishId AND c.id = ec.chineseId  -- ON关联条件
 WHERE c.definition = '苹果';
+
+
+
+-- apple 苹果
+/*
+english - chinese 1:n
+chinese - english 1:n
+n:n(多对多)，需要再多加一个表
+ */
