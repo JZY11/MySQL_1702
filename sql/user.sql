@@ -36,3 +36,27 @@ SELECT *
 FROM db_user_user
 WHERE email = 'tester@qq.com' AND password = '123'; -- 登录判断即是看加上where行检索（email和password）时是否有返回值
 
+# 3.发布留言(即是添加Insert语句)
+INSERT INTO db_user_message(content, userId) VALUE ('留言内容1.。。',1);
+INSERT INTO db_user_message(content, userId) VALUE ('留言内容2.。。',1);
+
+SELECT *
+FROM db_user_message;
+
+# 4.添加管理员(也是添加Insert语句)
+INSERT INTO db_user_user VALUE (NULL, 'admin@qq.com', 'James', '123', 'admin');
+SELECT *
+FROM db_user_user;
+
+# 5.查询留言表
+# 5. 查询留言列表
+SELECT
+  u.username,
+  m.content,
+  m.time
+FROM db_user_user u INNER JOIN db_user_message m
+    ON u.id = m.userId;
+
+# 6. 删除留言
+DELETE FROM db_user_message
+WHERE id = 2;
