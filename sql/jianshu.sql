@@ -1,6 +1,16 @@
+# 核心功能
+/*
+5. 关注 follow
+6. 专题 topic
+7. 收藏 collection
+8. 打赏 pay
+*/
+
+
 DROP DATABASE IF EXISTS db_jianshu;
 CREATE DATABASE db_jianshu;
 
+# 1. 用户 user
 DROP TABLE IF EXISTS db_jianshu.user;
 CREATE TABLE db_jianshu.user(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
@@ -9,6 +19,7 @@ CREATE TABLE db_jianshu.user(
   password VARCHAR(255) NOT NULL COMMENT '密码'
 )COMMENT '用户表';
 
+# 2. 文集 notebook
 DROP TABLE IF EXISTS db_jianshu.notebook;
 CREATE TABLE db_jianshu.notebook(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
@@ -16,6 +27,7 @@ CREATE TABLE db_jianshu.notebook(
   userId INT COMMENT 'FK 用户 ID'
 )COMMENT '文集表';
 
+# 3. 文章 note
 DROP TABLE IF EXISTS db_jianshu.note;
 CREATE TABLE db_jianshu.note(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
@@ -26,6 +38,7 @@ CREATE TABLE db_jianshu.note(
   notebookId INT COMMENT 'FK 文集 ID'
 )COMMENT '文章表';
 
+# 4. 评论 comment
 DROP TABLE IF EXISTS db_jianshu.comment;
 CREATE TABLE db_jianshu.comment(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
