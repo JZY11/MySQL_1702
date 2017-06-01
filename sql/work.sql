@@ -18,5 +18,36 @@ CREATE TABLE db_work.log(
   useID INT COMMENT 'FK 用户ID'
 )COMMENT '工作日志表';
 
-INSERT INTO db_work.user(name,password,team)VALUE ('emp1','123','第一组');
-INSERT INTO db_work.user (name, password, team) VALUE ('emp2', '123', '第一组');
+INSERT INTO db_work.user(username,password,team)VALUE ('emp1','123','第一组');
+INSERT INTO db_work.user (username, password, team) VALUE ('emp2', '123', '第一组');
+INSERT INTO db_work.user (username, password, team) VALUE ('emp3', '123', '第二组');
+INSERT INTO db_work.user (username, password, team) VALUE ('emp4', '123', '第一组');
+INSERT INTO db_work.user (username, password, team, role) VALUE ('team_leader1', '123', '第一组','组长');
+INSERT INTO db_work.user (username, password, team, role) VALUE ('team_leader2', '123', '第一组','组长');
+
+INSERT INTO db_work.log VALUE (NULL ,'content1 1','2017-5-21',1);
+INSERT INTO db_work.log VALUE (NULL ,'content1 2','2017-6-1',1);
+INSERT INTO db_work.log VALUE (NULL ,'content2 1','2017-5-31',2);
+INSERT INTO db_work.log VALUE (NULL ,'content2 2','2017-5-21',2);
+INSERT INTO db_work.log VALUE (NULL ,'content3 1','2017-5-21',3);
+INSERT INTO db_work.log VALUE (NULL ,'content4 1','2017-5-21',4);
+INSERT INTO db_work.log VALUE (NULL ,'content5 1','2017-5-21',5);
+
+-- 注册
+
+-- 登录
+SELECT *
+FROM db_work.user
+WHERE username= '' AND password = '';
+
+-- 员工查看自己的日志
+SELECT content
+FROM db_work.log
+WHERE useID = 1;
+
+-- 组长查看本组的日志
+SELECT u.username,l.time,l.content
+FROM db_work.user u INNER JOIN db_work.log l
+ON u.id = l.useID
+WHERE u.team = '第一组';
+
