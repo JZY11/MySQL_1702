@@ -17,7 +17,7 @@ CREATE TABLE db_dict.chinese(
 )COMMENT '中文表';
 
 DROP TABLE IF EXISTS db_dict.english_chinese;
-CREATE TABLE db_dict.english_chinese(
+CREATE TABLE db_dict.english_chinese( -- 关联表
   englishId INT COMMENT '英文ID FK',
   chineseId INT COMMENT '中文ID FK',
   PRIMARY KEY (englishId,chineseId)
@@ -40,7 +40,7 @@ INSERT INTO db_dict.english VALUE (NULL ,'apple');
 INSERT INTO db_dict.english VALUE (NULL ,'biffin');
 
 INSERT INTO db_dict.english_chinese VALUE (1,1);
-INSERT INTO db_dict.english_chinese VALUE (2,1);-- 关联关系
+INSERT INTO db_dict.english_chinese VALUE (2,1);-- 关联表数据
 
 SELECT c.definition  -- 做三个表放的联合查询
 FROM db_dict.english e INNER JOIN db_dict.chinese c INNER JOIN db_dict.english_chinese ec

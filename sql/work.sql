@@ -20,7 +20,7 @@ CREATE TABLE db_work.log(
 
 ALTER TABLE db_work.log
     ADD CONSTRAINT
-log_fk_userId
+log_fk_userId     -- 添加外键
 FOREIGN KEY (useID)
   REFERENCES db_work.user(id);
 
@@ -54,7 +54,7 @@ WHERE useID = 1;
 -- 组长查看本组的日志
 SELECT u.username,l.time,l.content
 FROM db_work.user u LEFT OUTER JOIN db_work.log l -- 左外联结*** 显示左表的落选记录
-ON u.id = l.useID
+ON u.id = l.useID                                  -- 两个表有关联，有关联条件ON
 WHERE u.team = '第一组';
 
 
