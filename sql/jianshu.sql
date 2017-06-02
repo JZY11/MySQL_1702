@@ -84,3 +84,30 @@ ALTER TABLE db_jianshu.comment
 comment_fk_commentId
 FOREIGN KEY (commentId)
 REFERENCES db_jianshu.comment(id);
+
+
+INSERT INTO db_jianshu.user VALUE (NULL ,'Tom','123','abc'); -- 1
+INSERT INTO db_jianshu.user VALUE (NULL ,'Jerry','456','abc'); -- 2
+
+INSERT INTO db_jianshu.notebook VALUE (NULL ,'Tom notebook',1); -- 1
+INSERT INTO db_jianshu.notebook VALUE (NULL ,'Jerry notebook',2); -- 2
+
+INSERT INTO db_jianshu.note (content, notebookId) VALUE ('Tom note content...',1); -- 1
+
+
+# noteId 与 commentId 不能同时存在，不能又对文章评论同时又对评论添加评论
+INSERT INTO db_jianshu.comment VALUE (NULL ,'Jerry comment','2017-6-2 10:00:00',1,2,NULL ); -- 1 对文章发表评论
+INSERT INTO db_jianshu.comment VALUE (NULL ,'Jerry comment','2017-6-2 10:01:00',NULL ,2, 1); -- 2 对评论发表评论
+
+SELECT *
+FROM db_jianshu.user;
+
+SELECT *
+FROM db_jianshu.notebook;
+
+SELECT *
+FROM db_jianshu.note;
+
+SELECT *
+FROM db_jianshu.comment;
+
