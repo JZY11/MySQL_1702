@@ -27,15 +27,15 @@ FOREIGN KEY (studentId)
 
 INSERT INTO db_test.Student VALUE (NULL ,'Mark','M','1995-06-07','计算机系','人民路5号');
 INSERT INTO db_test.Student VALUE (NULL ,'Marry','F','1997-06-07','美术系','人民路6号');
-INSERT INTO db_test.Student VALUE (NULL ,'James','M','1998-06-07','机械工程系','向阳路5号');
+INSERT INTO db_test.Student VALUE (NULL ,'李四','M','1998-06-07','机械工程系','向阳路5号');
 INSERT INTO db_test.Student VALUE (NULL ,'Lily','F','1995-06-07','电子系','向阳路5号');
 INSERT INTO db_test.Student VALUE (NULL ,'Anni','F','1995-06-07','音乐系','向阳路5号');
 
-INSERT INTO db_test.Score VALUE (NULL ,2,'Java SE','96');
-INSERT INTO db_test.Score VALUE (NULL ,1,'素描','80');
+INSERT INTO db_test.Score VALUE (NULL ,1,'Java SE','96');
+INSERT INTO db_test.Score VALUE (NULL ,2,'素描','80');
 INSERT INTO db_test.Score VALUE (NULL ,3,'机械设计','97');
-INSERT INTO db_test.Score VALUE (NULL ,5,'电子工程','77');
-INSERT INTO db_test.Score VALUE (NULL ,4,'音乐鉴赏','80');
+INSERT INTO db_test.Score VALUE (NULL ,4,'电子工程','77');
+INSERT INTO db_test.Score VALUE (NULL ,5,'音乐鉴赏','80');
 
 SELECT *
 FROM db_test.Student;
@@ -74,6 +74,54 @@ WHERE department = '电子系';
 SELECT count(*)
 FROM db_test.Student
 WHERE department = '音乐系';
+
+SELECT max(grade)
+FROM db_test.Score
+WHERE course = '机械设计';
+
+SELECT max(grade)
+FROM db_test.Score
+WHERE course = '素描';
+
+SELECT max(grade)
+FROM db_test.Score
+WHERE course = 'Java SE';
+
+SELECT max(grade)
+FROM db_test.Score
+WHERE course = '电子工程';
+
+SELECT max(grade)
+FROM db_test.Score
+WHERE course = '音乐鉴赏';
+
+SELECT Score.course,Score.grade
+FROM db_test.Score
+WHERE studentId = 3;
+
+SELECT *
+FROM db_test.Student st INNER JOIN db_test.Score so
+ON so.studentId = st.id;
+
+SELECT sum(grade)
+FROM db_test.Score
+WHERE studentId = 1;
+
+SELECT sum(grade)
+FROM db_test.Score
+WHERE studentId = 2;
+
+SELECT sum(grade)
+FROM db_test.Score
+WHERE studentId = 3;
+
+SELECT sum(grade)
+FROM db_test.Score
+WHERE studentId = 4;
+
+SELECT sum(grade)
+FROM db_test.Score
+WHERE studentId = 5;
 
 
 
