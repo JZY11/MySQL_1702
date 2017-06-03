@@ -26,17 +26,54 @@ FOREIGN KEY (studentId)
   REFERENCES db_test.Student(id);
 
 INSERT INTO db_test.Student VALUE (NULL ,'Mark','M','1995-06-07','计算机系','人民路5号');
-INSERT INTO db_test.Student VALUE (NULL ,'Marry','F','1996-06-07','美术系','人民路6号');
-INSERT INTO db_test.Student VALUE (NULL ,'James','M','1994-06-07','机械工程系','向阳路5号');
-INSERT INTO db_test.Student VALUE (NULL ,'Lily','F','1995-06-07','计算机系','向阳路5号');
+INSERT INTO db_test.Student VALUE (NULL ,'Marry','F','1997-06-07','美术系','人民路6号');
+INSERT INTO db_test.Student VALUE (NULL ,'James','M','1998-06-07','机械工程系','向阳路5号');
+INSERT INTO db_test.Student VALUE (NULL ,'Lily','F','1995-06-07','电子系','向阳路5号');
 INSERT INTO db_test.Student VALUE (NULL ,'Anni','F','1995-06-07','音乐系','向阳路5号');
 
-INSERT INTO db_test.Score VALUE (NULL ,2,'Java SE','大一');
-INSERT INTO db_test.Score VALUE (NULL ,1,'素描','大三');
-INSERT INTO db_test.Score VALUE (NULL ,3,'机械设计','大三');
-INSERT INTO db_test.Score VALUE (NULL ,5,'Java EE','大二');
-INSERT INTO db_test.Score VALUE (NULL ,4,'音乐鉴赏','大一');
+INSERT INTO db_test.Score VALUE (NULL ,2,'Java SE','96');
+INSERT INTO db_test.Score VALUE (NULL ,1,'素描','80');
+INSERT INTO db_test.Score VALUE (NULL ,3,'机械设计','97');
+INSERT INTO db_test.Score VALUE (NULL ,5,'电子工程','77');
+INSERT INTO db_test.Score VALUE (NULL ,4,'音乐鉴赏','80');
 
 SELECT *
 FROM db_test.Student;
+
+SELECT *
+FROM db_test.Student
+WHERE id = 2 OR id = 4;
+
+SELECT Student.id,Student.name,Student.department
+FROM db_test.Student;
+
+SELECT *
+FROM db_test.Student
+WHERE department = '计算机系' OR department = '电子系';
+
+SELECT *
+FROM db_test.Student
+WHERE dob >= 1999-01-01 OR dob <= 1997-01-01;
+
+SELECT count(*)
+FROM db_test.Student
+WHERE department = '计算机系';
+
+SELECT count(*)
+FROM db_test.Student
+WHERE department = '美术系';
+
+SELECT count(*)
+FROM db_test.Student
+WHERE department = '机械工程系';
+
+SELECT count(*)
+FROM db_test.Student
+WHERE department = '电子系';
+
+SELECT count(*)
+FROM db_test.Student
+WHERE department = '音乐系';
+
+
 
