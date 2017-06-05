@@ -71,11 +71,12 @@ CREATE TABLE db_jianshu.collection_note(
 DROP TABLE IF EXISTS db_jianshu.follow;
 CREATE TABLE db_jianshu.follow(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
-  useId INT COMMENT 'FK',
-  followedId INT COMMENT 'FK',
-  followedNotebookId INT COMMENT 'FK',
-  followedCollectionId INT COMMENT 'FK'
-)COMMENT '';
+  time DATETIME NOT NULL DEFAULT now() COMMENT '时间',
+  useId INT COMMENT 'FK 关注者 ID ',
+  followedId INT COMMENT 'FK 被关注者 ID ',
+  followedNotebookId INT COMMENT 'FK 被关注文集 ID',
+  followedCollectionId INT COMMENT 'FK 被关注专题 ID'
+)COMMENT '关注表';
 
 
 # 外键
