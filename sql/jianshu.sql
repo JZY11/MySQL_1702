@@ -5,8 +5,6 @@
 7. 收藏 collection
 8. 打赏 pay
 */
-
-
 DROP DATABASE IF EXISTS db_jianshu;
 CREATE DATABASE db_jianshu;
 
@@ -20,7 +18,8 @@ CREATE TABLE db_jianshu.user (
   mobilPhone VARCHAR(255) UNIQUE
   COMMENT '手机号码',
   password   VARCHAR(255) NOT NULL
-  COMMENT '密码'
+  COMMENT '密码',
+  avatar VARCHAR(255) NOT NULL DEFAULT 'default_avatar.png'
 )
   COMMENT '用户表';
 
@@ -41,6 +40,7 @@ CREATE TABLE db_jianshu.note (
   COMMENT 'ID PK',
   content    TEXT NOT NULL
   COMMENT '内容',
+  title VARCHAR(255) NOT NULL COMMENT '文章标题',
   time       DATETIME DEFAULT now()
   COMMENT '文章发布时间',
   views      INT      DEFAULT 0
@@ -103,6 +103,18 @@ CREATE TABLE db_jianshu.follow (
   followedCollectionId INT COMMENT 'FK 被关注专题 ID'
 )
   COMMENT '关注表';
+
+# 8.收藏表 bookmark
+DROP TABLE IF EXISTS db_jianshu.bookmark;
+CREATE TABLE db_jianshu.bookmark (
+  id                   INT               AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'ID PK',
+  userId INT COMMENT 'FK 收藏着 Id',
+  noteId INT COMMENT 'FK 被收藏文章 Id'
+)COMMENT '收藏表';
+
+# 9.打赏
+
 
 # 外键
 
@@ -167,7 +179,7 @@ REFERENCES db_jianshu.user(id);
 ALTER TABLE db_jianshu.follow -- 10
   ADD CONSTRAINT
   follow_fk_followedId
-FOREIGN KEY (followedId)
+FOREIGN KEY (followedUserId)
 REFERENCES db_jianshu.user(id);
 
 ALTER TABLE db_jianshu.follow -- 11
@@ -182,16 +194,28 @@ ALTER TABLE db_jianshu.follow -- 12
 FOREIGN KEY (followedCollectionId)
 REFERENCES db_jianshu.collection(id);
 
+ALTER TABLE db_jianshu.bookmark
+    ADD CONSTRAINT
+bookmark_fk_userId
+FOREIGN KEY (userId)
+  REFERENCES db_jianshu.user(id);
+
+ALTER TABLE db_jianshu.bookmark
+  ADD CONSTRAINT
+  bookmark_fk_noteId
+FOREIGN KEY (noteId)
+REFERENCES db_jianshu.note(id);
 
 
 
-INSERT INTO db_jianshu.user VALUE (NULL, 'Tom', '123', 'abc'); -- 1
-INSERT INTO db_jianshu.user VALUE (NULL, 'Jerry', '456', 'abc'); -- 2
+-- 样本数据
+INSERT INTO db_jianshu.user(nickname, mobilPhone, password) VALUE ('Tom', '123', 'abc'); -- 1
+INSERT INTO db_jianshu.user(nickname, mobilPhone, password) VALUE ('Jerry', '456', 'abc'); -- 2
 
 INSERT INTO db_jianshu.notebook VALUE (NULL, 'Tom notebook', 1); -- 1
 INSERT INTO db_jianshu.notebook VALUE (NULL, 'Jerry notebook', 2); -- 2
 
-INSERT INTO db_jianshu.note (content, notebookId) VALUE ('Tom note content...', 1); -- 1
+INSERT INTO db_jianshu.note (title, content, notebookId) VALUE ('Tom title...','Tom note content...', 1); -- 1
 
 
 # noteId 与 commentId 不能同时存在，不能又对文章评论同时又对评论添加评论
@@ -199,6 +223,8 @@ INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:00:00'
 INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:01:00', NULL, 2, 1); -- 2 对评论发表评论
 
 INSERT INTO db_jianshu.follow(useId, followedUserId) VALUE (2,1);
+
+INSERT INTO db_jianshu.bookmark VALUE (NULL ,2,1);
 
 SELECT *
 FROM db_jianshu.user;
@@ -212,7 +238,21 @@ FROM db_jianshu.note;
 SELECT *
 FROM db_jianshu.comment;
 
+SELECT *
+FROM db_jianshu.follow;
+
 SELECT count(*)
 FROM db_jianshu.follow
 WHERE followedUserId = 1;
+
+
+SELECT
+  u.avatar,
+  u.nickname,
+  n.title,
+  n.content,
+  n.time
+FROM db_jianshu.bookmark b INNER JOIN db_jianshu.note n INNER JOIN db_jianshu.user u INNER JOIN db_jianshu.notebook nb
+ON b.noteId = n.id AND n.notebookId = nb.id AND nb.userId = u.id
+WHERE b.userId = 2;
 
