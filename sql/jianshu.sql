@@ -49,6 +49,28 @@ CREATE TABLE db_jianshu.comment(
   commentId INT COMMENT 'FK 评论 ID'
 )COMMENT '评论表';
 
+# 5专题表 collection   专题与文章是多对多的关系（一个专题可以收录多个文章，一个文章可以被多个专题收录
+DROP TABLE IF EXISTS db_jianshu.collection;
+CREATE TABLE db_jianshu.collection(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  title VARCHAR(255) NOT NULL COMMENT '专题名称',
+  userId INT COMMENT 'FK 用户 ID '
+)COMMENT '专题表';
+
+
+# 6专题文章表 collection_note
+DROP TABLE IF EXISTS db_jianshu.collection_note;
+CREATE TABLE db_jianshu.collection_note(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  collectionId INT COMMENT 'PK FK',
+  noteId INT COMMENT 'PK FK',
+  PRIMARY KEY (collectionId,noteId)
+)COMMENT '文章专题表';
+
+# 7关注表 follow
+
+
+
 # 外键
 
 ALTER TABLE db_jianshu.notebook
