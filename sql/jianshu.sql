@@ -1,7 +1,7 @@
 # 核心功能
 /*
 5. 关注 follow
-6. 专题 topic
+6. 专题 notebook
 7. 收藏 collection
 8. 打赏 pay
 */
@@ -47,8 +47,8 @@ CREATE TABLE db_jianshu.note (
   COMMENT '阅读次数',
   likes      INT      DEFAULT 0
   COMMENT '喜欢次数',
-  notebookId INT COMMENT 'FK 文集 ID'
-)
+  pay INT COMMENT '打赏金额 NULL - 不需要打赏',
+  notebookId INT COMMENT 'FK 文集 ID')
   COMMENT '文章表';
 
 # 4. 评论 comment
@@ -80,8 +80,6 @@ CREATE TABLE db_jianshu.collection (
 # 6专题文章表 collection_note
 DROP TABLE IF EXISTS db_jianshu.collection_note;
 CREATE TABLE db_jianshu.collection_note (
-  id           INT AUTO_INCREMENT PRIMARY KEY
-  COMMENT 'ID PK',
   collectionId INT COMMENT 'PK FK',
   noteId       INT COMMENT 'PK FK',
   PRIMARY KEY (collectionId, noteId)
@@ -220,7 +218,7 @@ INSERT INTO db_jianshu.note (title, content, notebookId) VALUE ('Tom title...','
 
 # noteId 与 commentId 不能同时存在，不能又对文章评论同时又对评论添加评论
 INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:00:00', 1, 2, NULL); -- 1 对文章发表评论
-INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:01:00', NULL, 2, 1); -- 2 对评论发表评论
+INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:01:00', 1, 2, 1); -- 2 对评论发表评论
 
 INSERT INTO db_jianshu.follow(useId, followedUserId) VALUE (2,1);
 
@@ -251,8 +249,35 @@ SELECT
   u.nickname,
   n.title,
   n.content,
-  n.time
-FROM db_jianshu.bookmark b INNER JOIN db_jianshu.note n INNER JOIN db_jianshu.user u INNER JOIN db_jianshu.notebook nb
-ON b.noteId = n.id AND n.notebookId = nb.id AND nb.userId = u.id
+  n.time,
+  n.views,
+  count(*) AS 评论次数, -- ？
+  n.likes
+
+FROM db_jianshu.bookmark b
+  INNER JOIN db_jianshu.note n
+  INNER JOIN db_jianshu.user u
+  INNER JOIN db_jianshu.notebook nb
+  INNER JOIN db_jianshu.comment c
+ON b.noteId = n.id AND n.notebookId = nb.id AND nb.userId = u.id AND n.id = c.noteId
 WHERE b.userId = 2;
+
+SELECT count(*)     -- 直接对文章做的评论的查询以及对这篇文章直接评论又进行评论的所有数据
+FROM db_jianshu.note n INNER JOIN db_jianshu.comment c
+    ON n.id = c.noteId
+WHERE n.id = 1;
+
+/*SELECT *     -- 直接对文章做的评论的查询
+FROM db_jianshu.note n INNER JOIN db_jianshu.comment c
+ON n.id = c.noteId
+WHERE n.id = 1;
+
+SELECT count(*)
+FROM db_jianshu.comment
+WHERE commentId IN (-- 对这篇文章直接评论又进行评论的所有数据
+  SELECT c.id
+  FROM db_jianshu.note n INNER JOIN db_jianshu.comment c
+      ON n.id = c.noteId
+  WHERE n.id = 1
+);*/
 
