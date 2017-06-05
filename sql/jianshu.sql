@@ -19,7 +19,9 @@ CREATE TABLE db_jianshu.user (
   COMMENT '手机号码',
   password   VARCHAR(255) NOT NULL
   COMMENT '密码',
-  avatar VARCHAR(255) NOT NULL DEFAULT 'default_avatar.png'
+  avatar VARCHAR(255) NOT NULL DEFAULT 'default_avatar.png',
+  pay INT DEFAULT 2 COMMENT '打赏金额， 默认-2元； NULL-关闭打赏',
+  money DECIMAL(8,2) NOT NULL DEFAULT 0 COMMENT '账户余额'
 )
   COMMENT '用户表';
 
@@ -111,7 +113,18 @@ CREATE TABLE db_jianshu.bookmark (
   noteId INT COMMENT 'FK 被收藏文章 Id'
 )COMMENT '收藏表';
 
-# 9.打赏
+# 9.打赏 pay
+DROP TABLE IF EXISTS db_jianshu.pay;
+CREATE TABLE db_jianshu.pay (
+  id                   INT               AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'ID PK',
+  amount INT NOT NULL COMMENT '打赏金额',
+  message VARCHAR(255) COMMENT '留言',
+  method VARCHAR(255) COMMENT '支付方式',
+  userId INT COMMENT 'FK 打赏用户 ID ',
+  noteId INT COMMENT 'FK 文章 ID '
+)COMMENT '打赏表';
+
 
 
 # 外键
@@ -204,7 +217,17 @@ ALTER TABLE db_jianshu.bookmark
 FOREIGN KEY (noteId)
 REFERENCES db_jianshu.note(id);
 
+ALTER TABLE db_jianshu.pay
+    ADD CONSTRAINT
+pay_fk_userId
+FOREIGN KEY (userId)
+  REFERENCES db_jianshu.user(id);
 
+ALTER TABLE db_jianshu.pay
+    ADD CONSTRAINT
+pay_fk_noteId
+FOREIGN KEY (noteId)
+  REFERENCES db_jianshu.note(id);
 
 -- 样本数据
 INSERT INTO db_jianshu.user(nickname, mobilPhone, password) VALUE ('Tom', '123', 'abc'); -- 1
@@ -281,3 +304,19 @@ WHERE commentId IN (-- 对这篇文章直接评论又进行评论的所有数据
   WHERE n.id = 1
 );*/
 
+SELECT *
+FROM db_jianshu.user;
+
+
+START TRANSACTION ; -- ******开启一次事务
+# 1.向pay表添加一条语句 INSERT
+INSERT INTO db_jianshu.pay VALUE (NULL ,2,'message...','wechat',2,1);
+
+# 2.UPDATE  Tom钱加2元
+UPDATE db_jianshu.user
+    SET money = money + 2
+WHERE id = 1;
+
+COMMIT ;
+-- ROLLBACK ;有异常时才执行ROLLBACK，没异常时执行COMMIT
+# 3.UPDATE  Jerry钱减去2元
