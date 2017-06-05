@@ -68,7 +68,14 @@ CREATE TABLE db_jianshu.collection_note(
 )COMMENT '文章专题表';
 
 # 7关注表 follow
-
+DROP TABLE IF EXISTS db_jianshu.follow;
+CREATE TABLE db_jianshu.follow(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  useId INT COMMENT 'FK',
+  followedId INT COMMENT 'FK',
+  followedNotebookId INT COMMENT 'FK',
+  followedCollectionId INT COMMENT 'FK'
+)COMMENT '';
 
 
 # 外键
