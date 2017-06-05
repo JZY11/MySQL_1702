@@ -88,12 +88,6 @@ CREATE TABLE db_jianshu.collection_note (
 )
   COMMENT '文章专题表';
 
-ALTER TABLE db_jianshu.collection_note
-  ADD CONSTRAINT
-  collection_note_fk_collectionId
-FOREIGN KEY (collectionId)
-REFERENCES db_jianshu.collection(id);
-
 
 
 # 7关注表 follow
@@ -104,7 +98,7 @@ CREATE TABLE db_jianshu.follow (
   time                 DATETIME NOT NULL DEFAULT now()
   COMMENT '时间',
   useId                INT COMMENT 'FK 关注者 ID ',
-  followedId           INT COMMENT 'FK 被关注者 ID ',
+  followedUserId           INT COMMENT 'FK 被关注者 ID ',
   followedNotebookId   INT COMMENT 'FK 被关注文集 ID',
   followedCollectionId INT COMMENT 'FK 被关注专题 ID'
 )
@@ -146,31 +140,43 @@ ALTER TABLE db_jianshu.comment -- 5
 FOREIGN KEY (commentId)
 REFERENCES db_jianshu.comment (id);
 
-ALTER TABLE db_jianshu.collection_note -- 6
+ALTER TABLE db_jianshu.collection -- 6
+    ADD CONSTRAINT
+collection_fk_userId
+FOREIGN KEY (userId)
+  REFERENCES db_jianshu.user(id);
+
+ALTER TABLE db_jianshu.collection_note -- 7
+  ADD CONSTRAINT
+  collection_note_fk_collectionId
+FOREIGN KEY (collectionId)
+REFERENCES db_jianshu.collection(id);
+
+ALTER TABLE db_jianshu.collection_note -- 8
   ADD CONSTRAINT
   collection_note_fk_noteId
 FOREIGN KEY (noteId)
 REFERENCES db_jianshu.note(id);
 
-ALTER TABLE db_jianshu.follow -- 7
+ALTER TABLE db_jianshu.follow -- 9
   ADD CONSTRAINT
   follow_fk_userId
 FOREIGN KEY (useId)
 REFERENCES db_jianshu.user(id);
 
-ALTER TABLE db_jianshu.follow -- 8
+ALTER TABLE db_jianshu.follow -- 10
   ADD CONSTRAINT
   follow_fk_followedId
 FOREIGN KEY (followedId)
 REFERENCES db_jianshu.user(id);
 
-ALTER TABLE db_jianshu.follow -- 9
+ALTER TABLE db_jianshu.follow -- 11
   ADD CONSTRAINT
   follow_fk_followedNotebookId
 FOREIGN KEY (followedNotebookId)
 REFERENCES db_jianshu.notebook(id);
 
-ALTER TABLE db_jianshu.follow -- 10
+ALTER TABLE db_jianshu.follow -- 12
   ADD CONSTRAINT
   follow_fk_followCollectionId
 FOREIGN KEY (followedCollectionId)
@@ -192,6 +198,8 @@ INSERT INTO db_jianshu.note (content, notebookId) VALUE ('Tom note content...', 
 INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:00:00', 1, 2, NULL); -- 1 对文章发表评论
 INSERT INTO db_jianshu.comment VALUE (NULL, 'Jerry comment', '2017-6-2 10:01:00', NULL, 2, 1); -- 2 对评论发表评论
 
+INSERT INTO db_jianshu.follow(useId, followedUserId) VALUE (2,1);
+
 SELECT *
 FROM db_jianshu.user;
 
@@ -203,4 +211,8 @@ FROM db_jianshu.note;
 
 SELECT *
 FROM db_jianshu.comment;
+
+SELECT count(*)
+FROM db_jianshu.follow
+WHERE followedUserId = 1;
 
