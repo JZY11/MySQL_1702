@@ -14,6 +14,8 @@ SELECT *
 FROM db_1712.t_student;
 
 INSERT INTO db_1712.t_student
-    VALUE ('2017001','张三','男',18)
+    VALUE ('2017001','张三','男',18);
+
+
 
 
