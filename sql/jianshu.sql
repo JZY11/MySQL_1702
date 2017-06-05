@@ -67,6 +67,7 @@ CREATE TABLE db_jianshu.comment (
   commentId INT COMMENT 'FK 评论 ID'
 )
   COMMENT '评论表';
+# zan table: id  userId  commentId  time
 
 # 5专题表 collection   专题与文章是多对多的关系（一个专题可以收录多个文章，一个文章可以被多个专题收录
 DROP TABLE IF EXISTS db_jianshu.collection;
@@ -320,3 +321,6 @@ WHERE id = 1;
 COMMIT ;
 -- ROLLBACK ;有异常时才执行ROLLBACK，没异常时执行COMMIT
 # 3.UPDATE  Jerry钱减去2元
+
+SELECT *
+FROM db_jianshu.user;
